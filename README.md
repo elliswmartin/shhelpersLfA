@@ -75,6 +75,24 @@ Each letter corresponds to a different process, of which the code is copied exac
 * `a`: Jpgs in `crop` folder are copied to qc and then the background is cropped out. 
 * `r`: Jpgs in `OA_process` folder are resized to 3000px on longest side, and mid files are created (800px copies of orig files)    
 * `q`: Quits the script. 
+
+For example, if 'm' is pressed: 
+
+```
+# make jpgs
+if [[ $REPLY =~ ^[Mm]$ ]]
+then
+    # make crop folder if does not already exist
+    cd ~/Desktop/ && mkdir -p "crop" 
+    cd ~/Desktop/crop/
+
+    echo 🪄creating jpgs, hold please 🚀
+
+    # create flatten jpgs from tiffs
+    mogrify -flatten -format jpg *.tif
+
+    echo ⭐jpgs created, processing complete. 
+ ```   
     
 ## Background 
 I developed these scripts while working at Letterform Archive in San Francisco, CA to assist with automating small tasks. 
