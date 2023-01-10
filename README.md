@@ -52,5 +52,10 @@ Utilize ImageMagick's mogrify command to create jpg copies of tif files.
 
 3. (optional) Run [autocrop.sh](https://github.com/elliswmartin/autocropLfA/blob/85c9591d4c998e8d62e71494234da52d38808b6a/autocrop.sh) for the next stage of processing.  
 
+## shhelpers.sh
+
+### How It Works
+A combination of all of the scripts above with command line user input to customize each script execution. 
+
 ## Background 
 I developed these scripts while working at Letterform Archive in San Francisco, CA to assist with automating small tasks. 
