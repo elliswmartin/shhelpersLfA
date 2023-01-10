@@ -3,7 +3,7 @@
 
 ## rename.sh
 
-### How It Works
+#### How It Works
 This script uses bash to prepare jpg image files for the Online Archive. To do this, it performs a few tasks: 
 
 1. Resize existing jpgs to 3000 pixels on the longest side. 
@@ -23,7 +23,7 @@ This script uses bash to prepare jpg image files for the Online Archive. To do t
 
 4. Moves files to the `processed` folder when editing complete. 
 
-### Usage (Mac Only)
+#### Usage (Mac Only)
 
 1. This script ships assuming the following folder structure. You are welcome to modify this for your needs within the /rename.sh script.
 
@@ -39,19 +39,37 @@ This script uses bash to prepare jpg image files for the Online Archive. To do t
         
 ## makeJpg.sh
 
-### How It Works 
+#### How It Works 
 
 Utilize ImageMagick's mogrify command to create jpg copies of tif files. 
 
     $ mogrify -flatten -format jpg *.tif
 
-### Usage (Mac Only)
+#### Usage (Mac Only)
 1. This script ships assuming the following folder structure. You are welcome to modify this for your needs within the `makeJpg.sh` script. 
 
         ├── Desktop
         │   ├── crop
 
 2. Copy tif files that you would like to copy to jpgs into ~/Desktop/processed folder. 
+
+3. Open Terminal and run `makeJpg.sh`: 
+
+        $ sh /PATH/TO/SCRIPT/makeJpg.sh 
+
+## helpersLfA.sh
+
+#### Usage (Mac Only) 
+
+1. This script ships assuming the following folder structure. You are welcome to modify this for your needs within the `makeJpg.sh` script. 
+
+        ├── Desktop
+        │   ├── crop
+        │   ├── qc
+        │   ├── OA_process
+        │   ├── processed
+
+2. Copy files into corresponding folder for whichever process that you would like to run (see usage notes above for each script). 
 
 3. Open Terminal and run `helpersLfA.sh`: 
 
@@ -61,11 +79,7 @@ Utilize ImageMagick's mogrify command to create jpg copies of tif files.
 
 5. Continue to select a process until you would like to quit. 
 
-6. (optional) Run [autocrop.sh](https://github.com/elliswmartin/autocropLfA/blob/85c9591d4c998e8d62e71494234da52d38808b6a/autocrop.sh) for the next stage of processing.  
-
-## helpersLfA.sh
-
-### How It Works
+#### How It Works
 A combination of all of the scripts above with command line user input to customize each script execution. 
 
 The script continues to prompt the user until "q" character is pressed: 
@@ -98,4 +112,4 @@ then
  ```   
     
 ## Background 
-I developed these scripts while working at Letterform Archive in San Francisco, CA to assist with automating small tasks. 
+I developed these scripts while working at Letterform Archive in San Francisco, CA to assist with automating small tasks and streamline existing workflows. 
