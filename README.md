@@ -21,7 +21,7 @@ This script uses bash to prepare jpg image files for the Online Archive. To do t
 
        mogrify -resize 800x800\> *_mid.jpg
 
-### Usage
+### Usage (Mac Only)
 
 1. This script ships assuming the following folder structure. You are welcome to modify this for your needs within the /rename.sh script.
 
