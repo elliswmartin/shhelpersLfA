@@ -21,12 +21,15 @@ This script uses bash to prepare jpg image files for the Online Archive. To do t
 
        mogrify -resize 800x800\> *_mid.jpg
 
+4. Moves files to the `processed` folder when editing complete. 
+
 ### Usage (Mac Only)
 
 1. This script ships assuming the following folder structure. You are welcome to modify this for your needs within the /rename.sh script.
 
         ├── Desktop
         │   ├── OA_process
+        │   ├── processed
 
 2. Copy files that you would like to resize and create mids (copies resized to 800px) into ~/Desktop/OA_process folder. 
 
