@@ -38,7 +38,7 @@ This script uses bash to prepare jpg image files for the Online Archive. To do t
 
 ### How It Works 
 
-Utilize ImageMagick's mogrify command to create jpg copies of tiff files. 
+Utilize ImageMagick's mogrify command to create jpg copies of tif files. 
 
     $ mogrify -flatten -format jpg *.tif
 
@@ -48,7 +48,7 @@ Utilize ImageMagick's mogrify command to create jpg copies of tiff files.
         ├── Desktop
         │   ├── processed
 
-2. Copy tiff files that you would like to copy to jpgs into ~/Desktop/processed folder. 
+2. Copy tif files that you would like to copy to jpgs into ~/Desktop/processed folder. 
 
 ## Background 
 I developed these scripts while working at Letterform Archive in San Francisco, CA to assist with automating small tasks. 
