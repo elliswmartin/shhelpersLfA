@@ -18,3 +18,12 @@ echo 🌾 files duplicated, now downsizing to mids.
 
 mogrify -resize 800x800\> *_mid.jpg
 echo 🌱 800px mids created. 
+
+# make processed folder if it doesn't already exist
+cd ~/Desktop/
+mkdir -p "processed" 
+
+cd ~/Desktop/OA_process
+mv * ~/Desktop/processed/
+
+echo "🌊 processing complete! see processed folder for files"
