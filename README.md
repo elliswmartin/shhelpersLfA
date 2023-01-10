@@ -38,9 +38,9 @@ This script uses bash to prepare jpg image files for the Online Archive. To do t
 
 ### How It Works 
 
-1. Utilize ImageMagick's mogrify command to create jpg copies of tiff files. 
+Utilize ImageMagick's mogrify command to create jpg copies of tiff files. 
 
-        $ mogrify -flatten -format jpg *.tif
+    $ mogrify -flatten -format jpg *.tif
 
 ### Usage (Mac Only)
 1. This script ships assuming the following folder structure. You are welcome to modify this for your needs within the /makeJpg.sh script. 
