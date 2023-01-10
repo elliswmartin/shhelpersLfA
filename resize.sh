@@ -10,8 +10,8 @@ echo 🌲 all images resized at 3000px.
 
 # copy files, add '_mid' to filename and resize to 800 px on longest side.
 for f in *[0-9].jpg  # only process non-mid files
-do 
-cp -n "${f}" "${f%.*}_mid.jpg"
+    do 
+        cp -n "${f}" "${f%.*}_mid.jpg"
 done
 
 echo 🌾 files duplicated, now downsizing to mids. 
