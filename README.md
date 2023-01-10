@@ -46,9 +46,11 @@ Utilize ImageMagick's mogrify command to create jpg copies of tif files.
 1. This script ships assuming the following folder structure. You are welcome to modify this for your needs within the /makeJpg.sh script. 
 
         ├── Desktop
-        │   ├── processed
+        │   ├── crop
 
 2. Copy tif files that you would like to copy to jpgs into ~/Desktop/processed folder. 
+
+3. (optional) Run [autocrop.sh](https://github.com/elliswmartin/autocropLfA/blob/85c9591d4c998e8d62e71494234da52d38808b6a/autocrop.sh) for the next stage of processing.  
 
 ## Background 
 I developed these scripts while working at Letterform Archive in San Francisco, CA to assist with automating small tasks. 
