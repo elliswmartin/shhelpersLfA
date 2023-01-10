@@ -28,11 +28,27 @@ This script uses bash to prepare jpg image files for the Online Archive. To do t
         ├── Desktop
         │   ├── OA_process
 
-2. Copy files that you would like to resize and create mids (copies resized to 800px). 
+2. Copy files that you would like to resize and create mids (copies resized to 800px) into ~/Desktop/OA_process folder. 
 
 3. Open Terminal and run `rename.sh`. 
       
         $ sh /PATH/TO/SCRIPT/rename.sh 
+        
+## makeJpg.sh
+
+### How It Works 
+
+1. Utilize ImageMagick's mogrify command to create jpg copies of tiff files. 
+
+        $ mogrify -flatten -format jpg *.tif
+
+### Usage (Mac Only)
+1. This script ships assuming the following folder structure. You are welcome to modify this for your needs within the /makeJpg.sh script. 
+
+        ├── Desktop
+        │   ├── processed
+
+2. Copy tiff files that you would like to copy to jpgs into ~/Desktop/processed folder. 
 
 ## Background 
 I developed these scripts while working at Letterform Archive in San Francisco, CA to assist with automating small tasks. 
