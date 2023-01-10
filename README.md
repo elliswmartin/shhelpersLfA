@@ -1,9 +1,9 @@
 # shhelpersLfA
  Small bash tasks around Letterform Archive.
 
-## rename.sh
+# rename.sh
 
-#### How It Works
+### How It Works
 This script uses bash to prepare jpg image files for the Online Archive. To do this, it performs a few tasks: 
 
 1. Resize existing jpgs to 3000 pixels on the longest side. 
@@ -23,7 +23,7 @@ This script uses bash to prepare jpg image files for the Online Archive. To do t
 
 4. Moves files to the `processed` folder when editing complete. 
 
-#### Usage (Mac Only)
+### Usage (Mac Only)
 
 1. This script ships assuming the following folder structure. You are welcome to modify this for your needs within the /rename.sh script.
 
@@ -37,15 +37,15 @@ This script uses bash to prepare jpg image files for the Online Archive. To do t
       
         $ sh /PATH/TO/SCRIPT/rename.sh 
         
-## makeJpg.sh
+# makeJpg.sh
 
-#### How It Works 
+### How It Works 
 
 Utilize ImageMagick's mogrify command to create jpg copies of tif files. 
 
     $ mogrify -flatten -format jpg *.tif
 
-#### Usage (Mac Only)
+### Usage (Mac Only)
 1. This script ships assuming the following folder structure. You are welcome to modify this for your needs within the `makeJpg.sh` script. 
 
         ├── Desktop
@@ -57,9 +57,9 @@ Utilize ImageMagick's mogrify command to create jpg copies of tif files.
 
         $ sh /PATH/TO/SCRIPT/makeJpg.sh 
 
-## helpersLfA.sh
+# helpersLfA.sh
 
-#### Usage (Mac Only) 
+### Usage (Mac Only) 
 
 1. This script ships assuming the following folder structure. You are welcome to modify this for your needs within the `makeJpg.sh` script. 
 
@@ -79,7 +79,7 @@ Utilize ImageMagick's mogrify command to create jpg copies of tif files.
 
 5. Continue to select a process until you would like to quit. 
 
-#### How It Works
+### How It Works
 A combination of all of the scripts above with command line user input to customize each script execution. 
 
 The script continues to prompt the user until "q" character is pressed: 
