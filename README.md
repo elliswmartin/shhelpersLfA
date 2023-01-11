@@ -115,5 +115,5 @@ then
     echo ⭐jpgs created, processing complete. 
  ```   
     
-## Background 
+# Background 
 I developed these scripts while working at Letterform Archive in San Francisco, CA to assist with automating small tasks and streamline existing workflows. 
