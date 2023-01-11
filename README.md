@@ -1,7 +1,7 @@
 # shhelpersLfA
  Small bash tasks around Letterform Archive.
 
-# rename.sh
+# resize.sh
 
 ### How It Works
 This script uses bash to prepare jpg image files for the Online Archive. To do this, it performs a few tasks: 
@@ -28,14 +28,14 @@ This script uses bash to prepare jpg image files for the Online Archive. To do t
 1. This script ships assuming the following folder structure. You are welcome to modify this for your needs within the /rename.sh script.
 
         ├── Desktop
-        │   ├── OA_process
+        │   ├── qc
         │   ├── processed
 
 2. Copy files that you would like to resize and create mids (copies resized to 800px) into ~/Desktop/OA_process folder. 
 
-3. Open Terminal and run `rename.sh`. 
+3. Open Terminal and run `resize.sh`. 
       
-        $ sh /PATH/TO/SCRIPT/rename.sh 
+        $ sh /PATH/TO/SCRIPT/resize.sh 
         
 # makeJpg.sh
 
@@ -61,9 +61,21 @@ Utilize ImageMagick's mogrify command to create jpg copies of tif files.
 
 ### How It Works
 
+WRITE THISSSSSSS
 
+### Usage (Mac Only)
 
-### Usage (Mac Only) 
+0. Copy repository to local machine using Terminal.
+
+       $ cd /PATH/TO/WHERE/YOU/STORE/SCRIPTS
+
+       $ git clone https://github.com/elliswmartin/shhelpersLfA/
+
+0. OR, navigate to repository folder and pull updated repo using Terminal.  
+
+       $ cd /PATH/TO/THIS/REPO 
+    
+       $ git pull
 
 1. This script ships assuming the following folder structure. You are welcome to modify this for your needs within the `helpersLfA.sh` script. 
 
@@ -93,7 +105,7 @@ Each letter corresponds to a different process, of which the code is copied exac
 
 * `j`: Tifs in `crop` folder are turned into jpgs.
 * `a`: Jpgs in `crop` folder are copied to qc and then the background is cropped out. 
-* `r`: Jpgs in `OA_process` folder are resized to 3000px on longest side, and mid files are created (800px copies of orig files)    
+* `r`: Jpgs in `qc` folder are resized to 3000px on longest side, and mid files are created (800px copies of orig files)    
 * `q`: Quits the script. 
 
 For example, if 'j' is pressed: 
