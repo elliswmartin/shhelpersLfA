@@ -84,9 +84,12 @@ then
     mv * ~/Desktop/processed/
 
     echo "🌊 processing complete! see processed folder for files"
+elif [[ $REPLY =~ ^[Qq]$ ]]
+then
+    echo Quiting now 
 else
     echo "Invalid selection. 
-     Press 'j' for makeJpg.sh 
+    Press 'j' for makeJpg.sh 
     Press 'a' for autocrop.sh 
     Press 'r' for resize.sh 
     Press 'q' to quit"
