@@ -65,7 +65,7 @@ Utilize ImageMagick's mogrify command to create jpg copies of tif files.
 
 ### Usage (Mac Only) 
 
-1. This script ships assuming the following folder structure. You are welcome to modify this for your needs within the `makeJpg.sh` script. 
+1. This script ships assuming the following folder structure. You are welcome to modify this for your needs within the `helpersLfA.sh` script. 
 
         ├── Desktop
         │   ├── crop
