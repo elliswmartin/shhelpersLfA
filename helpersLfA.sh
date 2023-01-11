@@ -88,9 +88,10 @@ then
         echo "🌊 processing complete! see processed folder for files"
     else
         echo "🎱 qc folder does not exist, please try again."
+    fi
 elif [[ $REPLY =~ ^[Qq]$ ]]
 then
-    echo Quiting now 
+    echo 🦩 quitting now 
 else
     echo "Invalid selection. 
     Press 'j' for makeJpg.sh 
