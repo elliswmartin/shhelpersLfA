@@ -2,8 +2,8 @@
 
 echo greetings "$USER" 🦋 
 
-echo "This script allows you to do multiple tasks in one! 
- Press 'm' for makeJpg.sh 
+echo "This script allows you to do multiple shell tasks in one! 
+ Press 'j' for makeJpg.sh 
  Press 'a' for autocrop.sh 
  Press 'r' for resize.sh 
  Press 'q' to quit"
@@ -15,7 +15,7 @@ read -p "Please make a selection: " -n 1 -r
 echo    # (optional) move to a new line
 
 # make jpgs
-if [[ $REPLY =~ ^[Mm]$ ]]
+if [[ $REPLY =~ ^[Jj]$ ]]
 then
     # make crop folder if does not already exist
     cd ~/Desktop/ && mkdir -p "crop" 
@@ -84,5 +84,12 @@ then
     mv * ~/Desktop/processed/
 
     echo "🌊 processing complete! see processed folder for files"
+else
+    echo "Invalid selection. 
+     Press 'j' for makeJpg.sh 
+    Press 'a' for autocrop.sh 
+    Press 'r' for resize.sh 
+    Press 'q' to quit"
+
 fi
-done # while loop done
+done # close while loop
