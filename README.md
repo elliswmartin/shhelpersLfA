@@ -59,6 +59,10 @@ Utilize ImageMagick's mogrify command to create jpg copies of tif files.
 
 # helpersLfA.sh
 
+### How It Works
+
+
+
 ### Usage (Mac Only) 
 
 1. This script ships assuming the following folder structure. You are welcome to modify this for your needs within the `makeJpg.sh` script. 
@@ -88,16 +92,16 @@ The script continues to prompt the user until "q" character is pressed:
 
 Each letter corresponds to a different process, of which the code is copied exactly from the 2 scripts above and [autocrop](https://github.com/elliswmartin/autocropLfA/blob/85c9591d4c998e8d62e71494234da52d38808b6a/autocrop.sh): 
 
-* `m`: Tifs in `crop` folder are turned into jpgs.
+* `j`: Tifs in `crop` folder are turned into jpgs.
 * `a`: Jpgs in `crop` folder are copied to qc and then the background is cropped out. 
 * `r`: Jpgs in `OA_process` folder are resized to 3000px on longest side, and mid files are created (800px copies of orig files)    
 * `q`: Quits the script. 
 
-For example, if 'm' is pressed: 
+For example, if 'j' is pressed: 
 
 ```
 # make jpgs
-if [[ $REPLY =~ ^[Mm]$ ]]
+if [[ $REPLY =~ ^[Jj]$ ]]
 then
     # make crop folder if does not already exist
     cd ~/Desktop/ && mkdir -p "crop" 
@@ -111,5 +115,5 @@ then
     echo ⭐jpgs created, processing complete. 
  ```   
     
-## Background 
+# Background 
 I developed these scripts while working at Letterform Archive in San Francisco, CA to assist with automating small tasks and streamline existing workflows. 
