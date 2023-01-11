@@ -70,7 +70,6 @@ Utilize ImageMagick's mogrify command to create jpg copies of tif files.
         ├── Desktop
         │   ├── crop
         │   ├── qc
-        │   ├── OA_process
         │   ├── processed
 
 2. Copy files into corresponding folder for whichever process that you would like to run (see usage notes above for each script). 
