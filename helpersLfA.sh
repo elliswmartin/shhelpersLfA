@@ -57,7 +57,7 @@ then
 # resize and make mids
 elif [[ $REPLY =~ ^[Rr]$ ]]
 then
-    cd ~/Desktop/OA_process
+    cd ~/Desktop/qc
     echo 🪚🪵 now on to downsizing, hold please 🐗
 
     # resize to 3000 pixels on longest side, does not upscale. 
@@ -73,14 +73,14 @@ then
 
     echo 🌾 files duplicated, now downsizing to mids. 
 
-    mogrify -resize 800x800\> *_mid.jpg
+    mogrify -resize 800x800\> *_mid.jpg 
     echo 🌱 800px mids created. 
 
     # make processed folder if it doesn't already exist
     cd ~/Desktop/
     mkdir -p "processed" 
 
-    cd ~/Desktop/OA_process
+    cd ~/Desktop/qc
     mv * ~/Desktop/processed/
 
     echo "🌊 processing complete! see processed folder for files"
