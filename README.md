@@ -59,10 +59,6 @@ Utilize ImageMagick's mogrify command to create jpg copies of tif files.
 
 # helpersLfA.sh
 
-### How It Works
-
-WRITE THISSSSSSS
-
 ### Usage (Mac Only)
 
 0. Copy repository to local machine using Terminal.
