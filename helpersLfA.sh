@@ -2,8 +2,6 @@
 
 echo greetings "$USER" 🦋 
 
-COUNT=$(ls /Users/$USER/Desktop/qc/*.jpg | wc -l) # store count for later condition testing
-
 echo "This script allows you to do multiple shell tasks in one! 
  Press 'j' for makeJpg.sh 
  Press 'c' for autocrop.sh 
@@ -12,6 +10,9 @@ echo "This script allows you to do multiple shell tasks in one!
 
 while [[ ! $REPLY =~ ^[Qq]$ ]] 
 do
+
+COUNT=$(ls /Users/$USER/Desktop/qc/*.jpg | wc -l 2>/dev/null) # store count for later condition testing
+echo "count is $COUNT"
 
 read -p "Please make a selection: " -n 1 -r
 echo    # (optional) move to a new line
@@ -64,10 +65,10 @@ then
         then 
         break
     # check to make sure qc folder contains jpg files
-    elif [[ $COUNT == 0 ]] && echo "🪞 QC folder does not contain jpgs."
+    elif [[ $COUNT -eq 0 ]] && echo "🪞 QC folder does not contain jpgs."
         then
         break 
-    # prcoess if 2 conditionals above are met    
+    # process if 2 conditionals above are met    
     else
         cd ~/Desktop/qc
         echo 🪚🪵 now on to downsizing, hold please 🐗
