@@ -20,7 +20,7 @@ Each letter corresponds to a different process that is further documented below:
 * `q`: **Quit** 
     * Breaks while loop and quits the script
 
-For example, if 'j' is pressed: 
+For example, if `j` is pressed: 
 
 ```
 # make jpgs
