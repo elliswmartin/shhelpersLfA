@@ -125,15 +125,15 @@ This script ships assuming the following folder structure. You are welcome to mo
 
 ### Make Jpgs
 
-Copy tif files that you would like to copy to jpgs into ~/Desktop/processed folder. 
+Copy tif files that you would like to copy to jpgs into `~/Desktop/crop` folder. 
 
 ### Autocrop
 
-Add your images to be processed into the "/Desktop/crop" folder. If you do not have a qc folder, one will be created automatically during processing. 
+Add your images to be processed into the `~/Desktop/crop` folder. If you do not have a qc folder, one will be created automatically during processing. 
 
 ### Resize & Mids
 
-Copy files that you would like to resize and create mids (copies resized to 800px) into ~/Desktop/OA_process folder. 
+Copy files that you would like to resize and create mids (copies resized to 800px) into `~/Desktop/qc` folder. 
 
 ### Run Script
 
