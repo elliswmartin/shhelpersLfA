@@ -11,8 +11,8 @@ echo "This script allows you to do multiple shell tasks in one!
 while [[ ! $REPLY =~ ^[Qq]$ ]] 
 do
 
-COUNT=$(ls /Users/$USER/Desktop/qc/*.jpg | wc -l 2>/dev/null) # store count for later condition testing
-echo "count is $COUNT"
+# store count for later conditional testing
+COUNT=$(ls /Users/$USER/Desktop/qc/*.jpg 2>/dev/null| wc -l) 
 
 read -p "Please make a selection: " -n 1 -r
 echo    # (optional) move to a new line
