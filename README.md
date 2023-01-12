@@ -3,13 +3,13 @@
 
 # How It Works
 
-This script uses bash to ___________ command line user input to customize each script execution. 
+This script uses bash to execute various image processing tasks using command line user input to customize each task. 
 
-The script continues to prompt the user until "q" character is pressed: 
+After run, the script continues to prompt the user until "q" character is pressed: 
 
     $ while [[ ! $REPLY =~ ^[Qq]$ ]] 
 
-Each letter corresponds to a different process, of which the code is copied exactly from the 2 scripts above and [autocrop](https://github.com/elliswmartin/autocropLfA/blob/85c9591d4c998e8d62e71494234da52d38808b6a/autocrop.sh): 
+Each letter corresponds to a different process that is further documented below: 
 
 * `j`: Tifs in `crop` folder are turned into jpgs.
 * `c`: Jpgs in `crop` folder are copied to qc and then the background is cropped out. 
@@ -40,10 +40,9 @@ This script utilizes ImageMagick's mogrify command to create jpg copies of tif f
 
     $ mogrify -flatten -format jpg *.tif
 
-
 ## Autocrop
 
-This script uses ImageMagick mogrify program to crop a jpg file and overwrite it. Since the masked background can be visually distinguished from the object, this became the way to custom crop each image based on color difference rather than size.
+This script also uses mogrify to crop a jpg file and overwrite it. Since the masked background can be visually distinguished from the object, this became the way to custom crop each image based on color difference rather than size.
 
     $ mogrify -bordercolor white -fuzz 3% -trim +repage *.jpg
 
@@ -69,7 +68,6 @@ Additional mogrify arguments to consider:
 
 `-strip:` Removes xmp file in instances where thumbnail is not adjusting to cropped image.  
 
-
 Depending on which program is used to convert from tiff to jpg, some produce a file extension of '.jpg' and others '.jpeg'. The for loop below changes all .jpeg extensions to .jpg so they can be ingested into LfA's [Online Archive](oa.letterformarchive.org). 
 
     for file in ~/Desktop/crop/*
@@ -77,20 +75,9 @@ Depending on which program is used to convert from tiff to jpg, some produce a f
     mv "$file" "${file/.jpeg/.jpg}"
     done
 
-Prompts the user to perform quality control, and asks if they'd like to downscale to 3000 pixels on the longest size of the image. Adapted from [Dennis Williamson](https://stackoverflow.com/questions/19306771/how-can-i-get-the-current-users-username-in-bash)'s SE code snippet. 
-
-    read -p "❗pausing for QC, would you like to resize to 3000px?" -n 1 -r
-    echo    # (optional) move to a new line
-    if [[ ! $REPLY =~ ^[Nn]$ ]]
-    then
-        echo 🪚🪵 now on to downsizing, hold please 🛸
-        mogrify -resize 3000x3000\> *.jpg 
-        echo 🌱 all images resized. 
-    fi
-
 ## Resize & Mids
 
-This script uses bash to prepare jpg files for the Online Archive. To do this, it performs a few tasks:
+This script also uses bash to prepare jpg files for the Online Archive. To do this, it performs a few tasks:
 
 1. Resize existing jpgs to 3000 pixels on the longest side. 
 
@@ -154,7 +141,7 @@ Copy files that you would like to resize and create mids (copies resized to 800p
 
         $ sh /PATH/TO/SCRIPT/helpersLfA.sh 
 
-2. When prompted, enter a character in Terminal based on the process you would first like to run (see below for more details on the selections).  
+2. When prompted, enter a character in Terminal based on the process you would first like to run.  
 
 3. Continue to select a process until you would like to quit.  
     
