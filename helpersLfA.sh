@@ -2,9 +2,11 @@
 
 echo greetings "$USER" 🦋 
 
+COUNT=$(ls /Users/$USER/Desktop/qc/*.jpg | wc -l) # store count for later condition testing
+
 echo "This script allows you to do multiple shell tasks in one! 
  Press 'j' for makeJpg.sh 
- Press 'a' for autocrop.sh 
+ Press 'c' for autocrop.sh 
  Press 'r' for resize.sh 
  Press 'q' to quit"
 
@@ -29,7 +31,7 @@ then
     echo ⭐jpgs created, processing complete. 
 
 # autocrop
-elif [[ $REPLY =~ ^[Aa]$ ]]
+elif [[ $REPLY =~ ^[Cc]$ ]]
 then
     # change any ".jpeg" file extensions to ".jpg"
     for file in ~/Desktop/crop/*
@@ -57,8 +59,16 @@ then
 # resize and make mids
 elif [[ $REPLY =~ ^[Rr]$ ]]
 then
-    if ~/Desktop/qc:
+    # check to make sure qc folder exists
+    if [[ ! -d "/Users/$USER/Desktop/qc" ]] && echo "🎱 directory /Desktop/qc/ does not exist."
+        then 
+        break
+    # check to make sure qc folder contains jpg files
+    elif [[ $COUNT == 0 ]] && echo "🪞 QC folder does not contain jpgs."
         then
+        break 
+    # prcoess if 2 conditionals above are met    
+    else
         cd ~/Desktop/qc
         echo 🪚🪵 now on to downsizing, hold please 🐗
 
@@ -86,8 +96,6 @@ then
         mv * ~/Desktop/processed/
 
         echo "🌊 processing complete! see processed folder for files"
-    else
-        echo "🎱 qc folder does not exist, please try again."
     fi
 elif [[ $REPLY =~ ^[Qq]$ ]]
 then
@@ -95,7 +103,7 @@ then
 else
     echo "Invalid selection. 
     Press 'j' for makeJpg.sh 
-    Press 'a' for autocrop.sh 
+    Press 'c' for autocrop.sh 
     Press 'r' for resize.sh 
     Press 'q' to quit"
 
