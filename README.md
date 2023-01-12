@@ -100,7 +100,7 @@ The script continues to prompt the user until "q" character is pressed:
 Each letter corresponds to a different process, of which the code is copied exactly from the 2 scripts above and [autocrop](https://github.com/elliswmartin/autocropLfA/blob/85c9591d4c998e8d62e71494234da52d38808b6a/autocrop.sh): 
 
 * `j`: Tifs in `crop` folder are turned into jpgs.
-* `a`: Jpgs in `crop` folder are copied to qc and then the background is cropped out. 
+* `c`: Jpgs in `crop` folder are copied to qc and then the background is cropped out. 
 * `r`: Jpgs in `qc` folder are resized to 3000px on longest side, and mid files are created (800px copies of orig files)    
 * `q`: Quits the script. 
 
