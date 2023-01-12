@@ -141,7 +141,12 @@ Copy files that you would like to resize and create mids (copies resized to 800p
 
         $ sh /PATH/TO/SCRIPT/helpersLfA.sh 
 
-2. When prompted, enter a character in Terminal based on the process you would first like to run.  
+2. When prompted, enter a character in Terminal based on the process you would first like to run:
+
+* `j`: **Make Jpgs** 
+* `c`: **Autocrop** 
+* `r`: **Resize & Mids**
+* `q`: **Quit** 
 
 3. Continue to select a process until you would like to quit.  
     
