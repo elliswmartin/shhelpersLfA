@@ -11,9 +11,12 @@ After run, the script continues to prompt the user until "q" character is presse
 
 Each letter corresponds to a different process that is further documented below: 
 
-* `j`: **Make Jpgs** (tifs in `crop` folder are turned into jpgs).
-* `c`: **Autocrop** (jpgs in `crop` folder are copied to `qc` folder and then background is cropped out) 
-* `r`: **Resize & Mids** (jpgs in `qc` folder resized to 3000px on longest side, 800px mid copies created, and files moved to `processed` folder).   
+* `j`: **Make Jpgs** 
+    * tifs in `crop` folder are turned into jpgs.
+* `c`: **Autocrop** 
+    * jpgs in `crop` folder are copied to `qc` folder and then background is cropped out
+* `r`: **Resize & Mids** 
+    * jpgs in `qc` folder resized to 3000px on longest side, 800px mid copies created, and files moved to `processed` folder.   
 * `q`: **Quits** the script. 
 
 For example, if 'j' is pressed: 
