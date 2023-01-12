@@ -106,7 +106,7 @@ This script also uses bash to prepare jpg files for the Online Archive. To do th
 
        $ git clone https://github.com/elliswmartin/shhelpersLfA/
 
-* OR, navigate to repository folder and pull updated repo using Terminal.  
+* OR, if repository was previously downloaded, navigate to repo folder and pull updated repo using Terminal.  
 
        $ cd /PATH/TO/THIS/REPO 
     
