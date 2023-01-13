@@ -3,9 +3,9 @@
 echo greetings "$USER" 🦋 
 
 echo "This script allows you to do multiple shell tasks in one! 
- Press 'j' for makeJpg.sh 
- Press 'c' for autocrop.sh 
- Press 'r' for resize.sh 
+ Press 'j' to make jps from tifs in crop folder 
+ Press 'c' to autocrop jps in crop folder
+ Press 'r' to resize jpgs and make mids in qc folder
  Press 'q' to quit"
 
 while [[ ! $REPLY =~ ^[Qq]$ ]] 
@@ -103,10 +103,10 @@ then
     echo 🦩 quitting now 
 else
     echo "Invalid selection. 
-    Press 'j' for makeJpg.sh 
-    Press 'c' for autocrop.sh 
-    Press 'r' for resize.sh 
-    Press 'q' to quit"
+     Press 'j' to make jps from tifs in crop folder 
+     Press 'c' to autocrop jps in crop folder
+     Press 'r' to resize jpgs and make mids in qc folder
+     Press 'q' to quit"
 
 fi
 done # close while loop
