@@ -23,19 +23,21 @@ Each letter corresponds to a different process that is further documented below:
 For example, if `j` is pressed: 
 
 ```
-# make jpgs
 if [[ $REPLY =~ ^[Jj]$ ]]
 then
-    # make crop folder if does not already exist
-    cd ~/Desktop/ && mkdir -p "crop" 
-    cd ~/Desktop/crop/
+    # make tiff-process folder if does not already exist
+    mkdir -p ~/Desktop/helpers/tiff-process
+    cd ~/Desktop/helpers/tiff-process/
 
     echo 🪄creating jpgs, hold please 🚀
 
-    # create flatten jpgs from tiffs
+    # create flattened jpgs from tiffs
     mogrify -flatten -format jpg *.tif
 
-    echo ⭐jpgs created, processing complete. 
+    # copy files from source to destination, make jpg-process folder if it doesn't exist
+    mkdir -p ~/Desktop/helpers/jpg-process && mv ~/Desktop/helpers/tiff-process/*.jpg ~/Desktop/helpers/jpg-process/
+
+    echo ⭐jpgs created, see jpg-process folder. 
 ```
 
 ## Make Jpgs
@@ -74,7 +76,7 @@ Additional mogrify arguments to consider:
 
 Depending on which program is used to convert from tiff to jpg, some produce a file extension of '.jpg' and others '.jpeg'. The for loop below changes all .jpeg extensions to .jpg so they can be ingested into LfA's [Online Archive](oa.letterformarchive.org). 
 
-    for file in ~/Desktop/crop/*
+    for file in ~/Desktop/helpers/jpg-process/*
         do
     mv "$file" "${file/.jpeg/.jpg}"
     done
@@ -98,7 +100,7 @@ This script also uses bash to prepare jpg files for the Online Archive. To do th
 
        mogrify -resize 800x800\> *_mid.jpg
 
-4. Moves files to the `processed` folder when editing complete. 
+4. Moves files to the `oa` folder when editing complete. 
 
 # Usage (Mac Only)
 
@@ -121,23 +123,25 @@ This script also uses bash to prepare jpg files for the Online Archive. To do th
 This script ships assuming the following folder structure. You are welcome to modify this for your needs within the `helpersLfA.sh` script. 
 
         ├── Desktop
-        │   ├── crop
-        │   ├── qc
-        │   ├── processed
+        │   ├── helpers
+        │   │   ├── tiff-process        # Queue tiff files for processing here
+        │   │   ├── jpg-process         # Queue jpg files for processing here
+        │   │   ├── cropped             # Cropped jpgs routed here 
+        │   │   ├── oa                  # 3000px jpgs plus mids routed here (oa = Online Archive)  
 
 ## Prepare Files
 
 ### Make Jpgs
 
-Copy tif files that you would like to copy to jpgs into `~/Desktop/crop` folder. 
+Add TIFF files that you would like to copy to jpgs into `~/Desktop/tiff-process` folder. 
 
 ### Autocrop
 
-Add your images to be processed into the `~/Desktop/crop` folder. If you do not have a `qc` folder, one will be created automatically during processing. 
+Add JPG files that you would like to be cropped into the `~/Desktop/jpg-process` folder. If you do not have a `cropped` folder, one will be created automatically during processing. 
 
 ### Resize & Mids
 
-Copy files that you would like to resize and create mids (copies resized to 800px) into `~/Desktop/qc` folder. If you do not have a `processed` folder, one will be created automatically during processing. 
+Add cropped JPG files that you would like to resize and create mids (copies resized to 800px) into `~/Desktop/cropped` folder. If you do not have a `oa` folder, one will be created automatically during processing. 
 
 ## Run Script
 
