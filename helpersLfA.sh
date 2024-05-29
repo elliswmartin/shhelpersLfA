@@ -26,6 +26,7 @@ then
     # store count for print statement
     files=(*.tif)
     total_files=${#files[@]} 
+    current_file=0 
     echo 🪄 Creating jpgs, hold please 🚀
 
     for file in *.tif
@@ -108,28 +109,21 @@ then
 
         cd ~/Desktop/helpers/oa
 
-        for f in *.jpg  
+        for f in *[0-9].jpg  
             do 
             current_file=$((current_file + 1))
             printf "\r🔁🔁 Resizing %d of %d jpgs\033[K" "$current_file" "$total_files"
+            # copy files, add '_mid' to filename and resize to 800 px on longest side.
+            cp -n "${f}" "${f%.*}_mid.jpg"
+            mogrify -resize 800x800\> "${f%.*}_mid.jpg" 2>/dev/null
             # resize to 3000 pixels on longest side, does not upscale. 
-            mogrify -resize 3000x3000\> *.jpg 2>/dev/null
+            mogrify -resize 3000x3000\> "$f" 2>/dev/null
             if [[ $? -ne 0 ]]; then
-                echo "Error processing $file"
+                echo "Error processing $f"
             fi
         done        
-
-        echo 🌲 All images resized at 3000px. 
-
-        # copy files, add '_mid' to filename and resize to 800 px on longest side.
-        for f in *[0-9].jpg  # only process non-mid files
-            do 
-                cp -n "${f}" "${f%.*}_mid.jpg"
-                mogrify -resize 800x800\> *_mid.jpg 2>/dev/null
-        done        
-        echo 🌱 800px mids created. 
-
-        echo "🌊 processing complete! see oa folder for files"
+        echo
+        echo 🌲 All images resized at 3000px and 800px mids created. See oa folder for files 
         echo 
     fi
 elif [[ $REPLY =~ ^[Qq]$ ]]
