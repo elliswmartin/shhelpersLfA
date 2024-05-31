@@ -73,7 +73,8 @@ then
     do
         current_file=$((current_file + 1))
         printf "\r🔁🔁 Cropping %d of %d jpgs\033[K" "$current_file" "$total_files"
-        mogrify -bordercolor white -fuzz 3% -trim +repage "$file" 2>/dev/null
+        # Added -border 5x5 to add 5px white around each side
+        mogrify -bordercolor white -fuzz 3% -trim +repage -border 5x5 "$file" 2>/dev/null
         if [[ $? -ne 0 ]]; then
             echo "Error processing $file"
         fi
