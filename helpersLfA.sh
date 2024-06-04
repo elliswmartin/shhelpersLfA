@@ -29,6 +29,7 @@ then
     current_file=0 
     echo 🪄 Creating jpgs, hold please 🚀
 
+    # BUG - creating duplicate tiffs (and consequently jpgs) for some files - issue with loop structure
     for file in *.tif
     do
         current_file=$((current_file + 1))
