@@ -81,7 +81,6 @@ while [[ ! $REPLY =~ ^[Qq]$ ]]; do
             echo -e "\n🌲 Image now include 40px margin. See cropped-margins folder for files\n"  
             ;;
         
-        
         [Rr])
             # Resize and make mids
             mkdir -p ~/Desktop/helpers/oa && cp -R ~/Desktop/helpers/cropped/*.jpg ~/Desktop/helpers/oa/
