@@ -1,142 +1,113 @@
 #!/bin/bash -x
 
-echo greetings "$USER" 🦋 
+echo "Greetings $USER 🦋"
 
 echo "This script allows you to do multiple shell tasks in one! 
- Press 'j' to make jps from tifs in tiff-process folder 
- Press 'c' to autocrop jps in jpg-process folder
- Press 'r' to resize jpgs and make mids in cropped folder
- Press 'q' to quit"
+Press 'j' to make jps from tifs in tiff-process folder 
+Press 'c' to autocrop jpgs in jpg-process folder
+Press 'm' to add 40px margin to fullsize jpgs
+Press 'r' to resize jpgs and make mids in cropped folder
+Press 'q' to quit"
 
-while [[ ! $REPLY =~ ^[Qq]$ ]] 
-do
+while [[ ! $REPLY =~ ^[Qq]$ ]]; do
+    read -p "Please make a selection: " -n 1 -r
+    echo    # move to a new line
 
-# # store count for later conditional testing
-# COUNT=$(ls /Users/$USER/Desktop/helpers/process/*.jpg 2>/dev/null| wc -l) 
+    case $REPLY in
+        [Jj])
+            # Make tiff-process folder if it does not already exist
+            mkdir -p ~/Desktop/helpers/tiff-process
 
-read -p "Please make a selection: " -n 1 -r
-echo    # (optional) move to a new line
+            # Update total files count 
+            files=~/Desktop/helpers/tiff-process/*.tif
+            total_files=$(ls -1 ~/Desktop/helpers/tiff-process/*.tif 2>/dev/null | wc -l)
+            current_file=0 
 
-# make jpgs
-if [[ $REPLY =~ ^[Jj]$ ]]
-then
-    # make tiff-process folder if does not already exist
-    mkdir -p ~/Desktop/helpers/tiff-process
-    cd ~/Desktop/helpers/tiff-process/
-    # store count for print statement
-    files=(*.tif)
-    total_files=${#files[@]} 
-    current_file=0 
-    echo 🪄 Creating jpgs, hold please 🚀
+            # Convert TIFFs to JPGs
+            for file in ~/Desktop/helpers/tiff-process/*.tif; do
+                printf "\r🔁🔁 Converting %d of %d TIFFs to JPGs\033[K" "$((++current_file))" "$total_files"
+                convert "$file" -flatten "${file%.tif}.jpg" 2>/dev/null
+                [[ $? -ne 0 ]] && printf "\n❗❗Error converting $file\n"
+            done
 
-    # BUG - creating duplicate tiffs (and consequently jpgs) for some files - issue with loop structure
-    for file in *.tif
-    do
-        current_file=$((current_file + 1))
-        printf "\r🔁🔁 Making %d of %d jpgs\033[K" "$current_file" "$total_files"
-        # create flattened jpgs from tiffs
-        mogrify -flatten -format jpg "$file" 2>/dev/null
-        if [[ $? -ne 0 ]]; then
-            echo "Error processing $file"
-        fi
-    done 
-    echo
-    # copy files from source to destination, make jpg-process folder if it doesn't exist
-    mkdir -p ~/Desktop/helpers/jpg-process && mv ~/Desktop/helpers/tiff-process/*.jpg ~/Desktop/helpers/jpg-process/
-
-    echo ⭐ Jpgs created, see jpg-process folder. 
-    echo
-
-# autocrop
-elif [[ $REPLY =~ ^[Cc]$ ]]
-then
-    # change any ".jpeg" file extensions to ".jpg"
-    for file in ~/Desktop/helpers/jpg-process/*
-    do
-        mv "$file" "${file/.jpeg/.jpg}" 2>/dev/null
-    done
-
-    echo 🦩 extensions renamed to .jpg.
-    cd ~/Desktop/helpers/
-
-    # copy files from source to destination, make processed folder if it doesn't exist
-    mkdir -p ~/Desktop/helpers/cropped && cp -R ~/Desktop/helpers/jpg-process/*.jpg ~/Desktop/helpers/cropped/
-    
-    echo 📁 Files copied and moved to cropped folder. 
-    echo 🪨🔨 Now on to cropping! hold please ☺ 
-
-    cd ~/Desktop/helpers/cropped
-    # store count for print statement
-    files=(*.jpg)
-    total_files=${#files[@]}
-    current_file=0 
-    for file in *.jpg
-    do
-        current_file=$((current_file + 1))
-        printf "\r🔁🔁 Cropping %d of %d jpgs\033[K" "$current_file" "$total_files"
-        # Added -border 5x5 to add 5px white around each side
-        mogrify -bordercolor white -fuzz 3% -trim +repage -border 5x5 "$file" 2>/dev/null
-        if [[ $? -ne 0 ]]; then
-            echo "Error processing $file"
-        fi
-    done 
-    echo
-    echo 🌻 Cropping complete! 
-    cd ~/Desktop/helpers
-    echo
-
-# resize and make mids
-elif [[ $REPLY =~ ^[Rr]$ ]]
-then
-    cd ~/Desktop/helpers/cropped
-
-    # store count for print statement
-    files=(*.jpg)
-    total_files=${#files[@]}
-    current_file=0 
-
-    # check to make sure cropped folder exists
-    if [[ ! -d "/Users/$USER/Desktop/helpers/cropped" ]] && echo "🎱 directory /Desktop/helpers/cropped/ does not exist."
-        then 
-        break
-    # check to make sure cropped folder contains jpg files
-    elif [[ $total_files -eq 0 ]] && echo "🪞 cropped folder does not contain jpgs."
-        then
-        break 
-    # process if 2 conditionals above are met    
-    else
-        # copy files from source to destination, make oa folder if it doesn't exist
-        mkdir -p ~/Desktop/helpers/oa && cp -R ~/Desktop/helpers/cropped/*.jpg ~/Desktop/helpers/oa/
-        echo 🪚🪵 Now on to downsizing, hold please 🐗
-
-        cd ~/Desktop/helpers/oa
-
-        for f in *[0-9].jpg  
-            do 
-            current_file=$((current_file + 1))
-            printf "\r🔁🔁 Resizing %d of %d jpgs\033[K" "$current_file" "$total_files"
-            # copy files, add '_mid' to filename and resize to 800 px on longest side.
-            cp -n "${f}" "${f%.*}_mid.jpg"
-            mogrify -resize 800x800\> "${f%.*}_mid.jpg" 2>/dev/null
-            # resize to 3000 pixels on longest side, does not upscale. 
-            mogrify -resize 3000x3000\> "$f" 2>/dev/null
-            if [[ $? -ne 0 ]]; then
-                echo "Error processing $f"
+            # Move JPGs to jpg-process folder if any were created
+            if [[ -n $(ls ~/Desktop/helpers/tiff-process/*.jpg 2>/dev/null) ]]; then
+                mkdir -p ~/Desktop/helpers/jpg-process && mv ~/Desktop/helpers/tiff-process/*.jpg ~/Desktop/helpers/jpg-process/
+                echo    
+                echo ⭐ Jpgs created, see jpg-process folder.
+            else
+                echo ❌ No JPGs were created.
             fi
-        done        
-        echo
-        echo 🌲 All images resized at 3000px and 800px mids created. See oa folder for files 
-        echo 
-    fi
-elif [[ $REPLY =~ ^[Qq]$ ]]
-then
-    echo 🦩 quitting now 
-else
-    echo "Invalid selection. 
-        Press 'j' to make jps from tifs in tiff-process folder 
-        Press 'c' to autocrop jps in jpg-process folder
-        Press 'r' to resize jpgs and make mids in cropped folder
-        Press 'q' to quit"
+            ;;
+        [Cc])
+            # Rename extensions to .jpg and move files to cropped folder
+            for file in ~/Desktop/helpers/jpg-process/*; do
+                mv "$file" "${file/.jpeg/.jpg}" 2>/dev/null
+            done
+            echo 🦩 Extensions renamed to .jpg.
+            mkdir -p ~/Desktop/helpers/cropped && cp -R ~/Desktop/helpers/jpg-process/*.jpg ~/Desktop/helpers/cropped/
+            echo 📁 Files copied and moved to cropped folder. 
+            echo 🪨🔨 Now on to cropping! hold please ☺ 
+            
+            # Update total files count 
+            files=~/Desktop/helpers/cropped/*.jpg
+            total_files=$(ls -1 ~/Desktop/helpers/cropped/*.jpg 2>/dev/null | wc -l)
+            current_file=0
 
-fi
-done # close while loop
+            for file in ~/Desktop/helpers/cropped/*.jpg; do
+                printf "\r🔁🔁 Cropping %d of %d jpgs\033[K" "$((++current_file))" "$total_files"
+                mogrify -bordercolor white -fuzz 3% -trim +repage -border 8x8 "$file" 2>/dev/null
+                [[ $? -ne 0 ]] && printf "\n❗❗Error cropping $file\n"
+            done 
+            echo
+            echo 🌻 Cropping complete! 
+            echo
+            ;;
+        [Mm])
+            # Add 20px margin to all cropped jpgs 
+            mkdir -p ~/Desktop/helpers/cropped-margin && cp -R ~/Desktop/helpers/cropped/*.jpg ~/Desktop/helpers/cropped-margin/
+            echo 🪟🔖 Now to add 40px margin, hold please 🌅 
+
+            # Update total files count 
+            files=~/Desktop/helpers/cropped-margin/*.jpg
+            total_files=$(ls -1 ~/Desktop/helpers/cropped-margin/*.jpg 2>/dev/null | wc -l)
+            current_file=0
+
+            for file in ~/Desktop/helpers/cropped-margin/*.jpg; do
+                printf "\r🔁🔁 Adjusting %d of %d jpgs\033[K" "$((++current_file))" "$total_files"
+                convert "$file" -bordercolor white -border 40x40 "$file" 2>/dev/null
+                [[ $? -ne 0 ]] && printf "\n❗❗Error adjusting margins on $file\n"
+            done        
+            echo -e "\n🌲 Image now include 40px margin. See cropped-margins folder for files\n"  
+            ;;
+        
+        
+        [Rr])
+            # Resize and make mids
+            mkdir -p ~/Desktop/helpers/oa && cp -R ~/Desktop/helpers/cropped/*.jpg ~/Desktop/helpers/oa/
+            echo 🪚🪵 Now on to downsizing, hold please 🐗
+
+            # Update total files count 
+            files=~/Desktop/helpers/oa/*.jpg
+            total_files=$(ls -1 ~/Desktop/helpers/oa/*.jpg 2>/dev/null | wc -l)
+            current_file=0
+
+            for file in ~/Desktop/helpers/oa/*[0-9].jpg; do
+                printf "\r🔁🔁 Resizing %d of %d jpgs\033[K" "$((++current_file))" "$total_files"
+                cp -n "${file}" "${file%.*}_mid.jpg"
+                mogrify -resize 800x800\> "${file%.*}_mid.jpg" 2>/dev/null
+                mogrify -resize 3000x3000\> "$file" 2>/dev/null
+                [[ $? -ne 0 ]] && printf "\n❗❗Error resizing $file\n"
+            done        
+            echo
+            echo 🌲 All images resized at 3000px and 800px mids created. See oa folder for files 
+            echo 
+            ;;
+        [Qq])
+            echo 🦩 Quitting now 
+            ;;
+        *)
+            echo -e "Invalid selection. \nPress 'j' to make jps from tifs in tiff-process folder \nPress 'c' to autocrop jps in jpg-process folder\nPress 'r' to resize jpgs and make mids in cropped folder\nPress 'q' to quit"
+            ;;
+    esac
+done
