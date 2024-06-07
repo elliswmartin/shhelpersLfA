@@ -15,6 +15,8 @@ Each letter corresponds to a different process that is further documented below:
     * Tifs in crop folder are turned into jpgs.
 * `c`: **Autocrop** 
     * Jpgs in crop folder are copied to qc folder and then background is cropped out
+* `m`: **Margins**
+    * Add 40 px margins around the outside of cropped fullsize jpgs.  
 * `r`: **Resize & Mids** 
     * Jpgs in qc folder resized to 3000px on longest side, 800px mid copies created, and files moved to processed folder.   
 * `q`: **Quit** 
@@ -80,6 +82,9 @@ Depending on which program is used to convert from tiff to jpg, some produce a f
         do
     mv "$file" "${file/.jpeg/.jpg}"
     done
+
+## Margins
+Create margins around cropped images for better edge visibility and increase usefulness in other Archive domains such as Publishing. 
 
 ## Resize & Mids
 
