@@ -64,7 +64,7 @@ while [[ ! $REPLY =~ ^[Qq]$ ]]; do
             echo
             ;;
         [Mm])
-            # Add 20px margin to all cropped jpgs 
+            # Add 40px margin to all cropped jpgs 
             mkdir -p ~/Desktop/helpers/cropped-margin && cp -R ~/Desktop/helpers/cropped/*.jpg ~/Desktop/helpers/cropped-margin/
             echo 🪟🔖 Now to add 40px margin, hold please 🌅 
 
