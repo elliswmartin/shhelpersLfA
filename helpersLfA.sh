@@ -4,6 +4,7 @@ echo "Greetings $USER 🦋"
 
 echo "This script allows you to do multiple shell tasks in one! 
 Press 'j' to make jps from tifs in tiff-process folder 
+Press 't' to autocrop tifs in tiff-process folder
 Press 'c' to autocrop jpgs in jpg-process folder
 Press 'm' to add 40px margin to fullsize jpgs
 Press 'r' to resize jpgs and make mids in cropped folder
@@ -39,6 +40,28 @@ while [[ ! $REPLY =~ ^[Qq]$ ]]; do
                 echo ❌ No JPGs were created.
             fi
             ;;
+
+            [Tt])
+            mkdir -p ~/Desktop/helpers/tiff-cropped && cp -R ~/Desktop/helpers/tiff-process/*.tif ~/Desktop/helpers/tiff-cropped/
+            echo 📁 Files copied and moved to tiff-cropped folder. 
+            echo 📄✂️ Now on to cropping! hold please 👼
+            
+            # Update total files count 
+            files=~/Desktop/helpers/tiff-cropped/*.tif
+            total_files=$(ls -1 ~/Desktop/helpers/tiff-cropped/*.tif 2>/dev/null | wc -l)
+            current_file=0
+
+            for file in ~/Desktop/helpers/tiff-cropped/*.tif; do
+                printf "\r🔁🔁 Cropping %d of %d tiffs\033[K" "$((++current_file))" "$total_files"
+                mogrify -bordercolor white -fuzz 3% -trim +repage -border 8x8 "$file" 2>/dev/null
+                [[ $? -ne 0 ]] && printf "\n❗❗Error cropping $file\n"
+            done 
+            echo
+            echo 🪴 Cropping complete! 
+            echo
+            ;;
+        
+        
         [Cc])
             # Rename extensions to .jpg and move files to cropped folder
             for file in ~/Desktop/helpers/jpg-process/*; do
@@ -106,7 +129,13 @@ while [[ ! $REPLY =~ ^[Qq]$ ]]; do
             echo 🦩 Quitting now 
             ;;
         *)
-            echo -e "Invalid selection. \nPress 'j' to make jps from tifs in tiff-process folder \nPress 'c' to autocrop jps in jpg-process folder\nPress 'r' to resize jpgs and make mids in cropped folder\nPress 'q' to quit"
+            echo -e "Invalid selection. 
+            \nPress 'j' to make jps from tifs in tiff-process folder 
+            \nPress 't' to autocrop tifs in tiff-process folder
+            \nPress 'c' to autocrop jps in jpg-process folder
+            \n Press 'm' to add 40px margin to fullsize jpgs
+            \nPress 'r' to resize jpgs and make mids in cropped folder
+            \nPress 'q' to quit"
             ;;
     esac
 done
