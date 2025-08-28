@@ -53,9 +53,29 @@ while [[ ! $REPLY =~ ^[Qq]$ ]]; do
 
             for file in ~/Desktop/helpers/tiff-cropped/*.tif; do
                 printf "\r🔁🔁 Cropping %d of %d tiffs\033[K" "$((++current_file))" "$total_files"
-                mogrify -bordercolor white -fuzz 3% -trim +repage -border 8x8 "$file" 2>/dev/null
-                [[ $? -ne 0 ]] && printf "\n❗❗Error cropping $file\n"
-            done 
+
+                # Create a temp working copy
+                tmpfile="/tmp/__cleaned_$(basename "$file")"
+                
+                # Clean the background:
+                # 1. Normalize slight background tones
+                # 2. Use morphology to close gaps
+                # 3. Convert back to solid white
+
+                convert "$file" \
+                    -fuzz 8% -fill white -draw "color 0,0 floodfill" \  # flood fill from top-left to get rid of faint gray
+                    -morphology Close Disk:2 \                           # closes small gaps and specks
+                    -flatten "$tmpfile"
+
+                # Now apply your original crop operation on the cleaned temp image
+                mogrify -bordercolor white -fuzz 3% -trim +repage -border 8x8 "$tmpfile" 2>/dev/null
+
+                # Overwrite the original with the cleaned & cropped version
+                mv "$tmpfile" "$file"
+                
+                [[ $? -ne 0 ]] && printf "\n❗❗Error processing $file\n"
+            done
+
             echo
             echo 🪴 Cropping complete! 
             echo
@@ -114,7 +134,7 @@ while [[ ! $REPLY =~ ^[Qq]$ ]]; do
             total_files=$(ls -1 ~/Desktop/helpers/oa/*.jpg 2>/dev/null | wc -l)
             current_file=0
 
-            for file in ~/Desktop/helpers/oa/*[0-9].jpg; do
+            for file in ~/Desktop/helpers/oa/*.jpg; do
                 printf "\r🔁🔁 Resizing %d of %d jpgs\033[K" "$((++current_file))" "$total_files"
                 cp -n "${file}" "${file%.*}_mid.jpg"
                 mogrify -resize 800x800\> "${file%.*}_mid.jpg" 2>/dev/null
